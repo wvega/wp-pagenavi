@@ -71,7 +71,7 @@ function wp_pagenavi( $args = array() ) {
 					array( "%CURRENT_PAGE%", "%TOTAL_PAGES%" ),
 					array( number_format_i18n( $paged ), number_format_i18n( $total_pages ) ),
 				$options['pages_text'] );
-				$out .= "<span class='pages'>$pages_text</span>";
+				$out .= "<li class='disabled'><a href='#'>$pages_text</a></li>";
 			}
 
 			if ( $start_page >= 2 && $pages_to_show < $total_pages ) {
@@ -111,7 +111,7 @@ function wp_pagenavi( $args = array() ) {
 			foreach ( range( $start_page, $end_page ) as $i ) {
 				if ( $i == $paged && !empty( $options['current_text'] ) ) {
 					$current_page_text = str_replace( '%PAGE_NUMBER%', number_format_i18n( $i ), $options['current_text'] );
-					$out .= "<span class='current'>$current_page_text</span>";
+					$out .= "<li class='active'><a href='#'>$current_page_text</a></li>";
 					$timeline = 'larger';
 				} else {
 					$out .= $instance->get_single( $i, "page $timeline", $options['page_text'] );
@@ -171,7 +171,7 @@ function wp_pagenavi( $args = array() ) {
 			$out .= "</form>\n";
 			break;
 	}
-	$out = $before . "<div class='wp-pagenavi'>\n$out\n</div>" . $after;
+	$out = $before . "<div class='pagination pagination-centered'><ul>\n$out\n</ul></div>" . $after;
 
 	$out = apply_filters( 'wp_pagenavi', $out );
 
@@ -229,7 +229,7 @@ class PageNavi_Call {
 
 		$text = str_replace( $format, number_format_i18n( $page ), $raw_text );
 
-		return "<a href='" . esc_url( $this->get_url( $page ) ) . "' class='$class'>$text</a>";
+		return "<li><a href='" . esc_url( $this->get_url( $page ) ) . "' class='$class'>$text</a></li>";
 	}
 
 	function get_url( $page ) {
